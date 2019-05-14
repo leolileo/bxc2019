@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title></title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Add additional CSS in static file -->
+</head>
+<body>
+<h1>Status:</h1>
+{% if status == good %}
+<div style="opacity:0.8;
+    background-color:green;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;">
+</div>
+{% endif %}
+{% if status == problem %}
+<div style="opacity:0.8;
+    background-color:yellow;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;">
+    <div class="wrapper" style="text-align:center">
+        <a class="btn btn-primary" href="/status" role="button" style="    position: absolute;
+    top: 50%;">Link</a>
+    </div>
+</div>
+{% endif %}
+{% if status == alert %}
+<div style="opacity:0.8;
+    background-color:red;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;">
+    <div class="wrapper" style="text-align:center">
+        <a class="btn btn-primary" href="/status" role="button" style="    position: absolute;
+    top: 50%;">Link</a>
+    </div>
+</div>
+{% endif %}
+
+{% if status == good %}
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>setTimeout(function(){
+   window.location.reload(1);
+}, 1000);
+</script>
+{% endblock %}
+{% endif %}
+
+
+</body>
+</html>
