@@ -29,14 +29,16 @@ class SmartThing(Document):
     meta = {'db_alias': 'main'}
 
 
-SMARTmacadresses = ["3A3014F711A0000495385ABCCE",
-                    "3A3014F711A0000495385A11FB",
-                    "3A3014F711A0000495385A110B"]
+SMARTmacadresses = ["3AHomeMaticIP%3A3014F711A0000495385ABCCE",
+                    "3AHomeMaticIP%3A3014F711A0000495385A11FB",
+                    "3AHomeMaticIP%3A3014F711A0000495385A110B"]
+
+CO2macadresses = ["3AZigBee%3A000d6f000cb919c4"]
 
 
 def getData(devicemac):
     import json
-    connection.request("GET", "/api/2/things/com.bosch.bcx2019%3AHOME-hdm%3AHomeMaticIP%" + devicemac,
+    connection.request("GET", "/api/2/things/com.bosch.bcx2019%3AHOME-hdm%" + devicemac,
                        None,
                        headers)
     response = connection.getresponse()
@@ -54,13 +56,11 @@ def getData(devicemac):
         'time': datetime.now
     }
 
-    print(mongo_object)
     if __name__ == '__main__':
         #   # Saving to MongoDB
         r = SmartThing(**mongo_object).save()
         # # Printing ID
-    print(r.id)
-    # pprint(datetime.datetime.fromtimestamp(1557831548493 / 1e3))
+        print(r.id)
 
 
 while True:
