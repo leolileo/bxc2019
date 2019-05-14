@@ -19,5 +19,5 @@ import example
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', example.urls)
+    #path('/', example.urls)
 ]
