@@ -35,8 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'example',
-    'background_task'
+    'example'
 ]
 
 BACKGROUND_TASK_RUN_ASYNC = True
