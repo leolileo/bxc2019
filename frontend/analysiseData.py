@@ -1,12 +1,13 @@
 import csv
 import json
 import http.client
+import time
 
 # headers = {"accept": "application/json", "x-cr-api-token": "e7f6e462a0e84cbab0dcae505cf54239",
 #          "Authorization": "Basic SEFYXENyZWF0aXZlTWVkdXNhOmVYeVQ5RiUzK0lvWXkmNw=="}
 
 # connection = http.client.HTTPConnection('hackthonbxc2019.herokuapp.com')
-import time
+
 
 import numpy
 
@@ -76,9 +77,10 @@ def analyseData():
 
     # print(d['power'][0].dtypes)
 
+    # analyseData()
 
-analyseData()
-# setAlert()
-# while True:
-#    time.sleep(1)
-#    checkSwitch()
+
+setAlert()
+while True:
+    time.sleep(1)
+    checkSwitch()
