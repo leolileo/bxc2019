@@ -1,3 +1,4 @@
+pandas
 background
 mongoengine
 dj-database-url

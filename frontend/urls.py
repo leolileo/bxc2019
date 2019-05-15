@@ -5,5 +5,6 @@ from frontend import views
 urlpatterns = [
     path('', views.index, name='status'),
     path('problem', views.problem, name='problem'),
-    path('alert', views.alert, name='alert')
+    path('alert', views.alert, name='alert'),
+    path('good', views.good, name='alert')
 ]

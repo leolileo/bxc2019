@@ -30,10 +30,6 @@
     top:0px;
     left:0px;
     z-index:1000;">
-    <div class="wrapper" style="text-align:center">
-        <a class="btn btn-primary" href="/status" role="button" style="    position: absolute;
-    top: 50%;">Link</a>
-    </div>
 </div>
 {% endif %}
 {% if status == alert %}
@@ -45,22 +41,17 @@
     top:0px;
     left:0px;
     z-index:1000;">
-    <div class="wrapper" style="text-align:center">
-        <a class="btn btn-primary" href="/status" role="button" style="    position: absolute;
-    top: 50%;">Link</a>
-    </div>
 </div>
 {% endif %}
 
-{% if status == good %}
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>setTimeout(function(){
    window.location.reload(1);
 }, 1000);
+
 </script>
 {% endblock %}
-{% endif %}
 
 
 </body>
