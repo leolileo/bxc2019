@@ -8,7 +8,6 @@ import time
 
 # connection = http.client.HTTPConnection('hackthonbxc2019.herokuapp.com')
 
-
 import numpy
 
 connection = http.client.HTTPConnection('localhost', 8000)
@@ -22,18 +21,14 @@ def setAlert():
 
 
 def getData():
+    dataArray = []
     connection.request("GET", "/datasets/datasetGood")
     response = connection.getresponse()
     result = json.loads(response.read())
-    with open('dataplug11fake.csv', 'r') as csvfile:
-        for jsonobject in result:
-            if jsonobject['attributes']['name'] == "Smart Plug 11":
-                spamwriter = csv.writer(csvfile, delimiter=' ')
-                if jsonobject['powerConsumption'] > 350:
-                    spamwriter.writerow(
-                        jsonobject['attributes']['name'] + "," + str(jsonobject['powerConsumption'] - 200))
-                else:
-                    spamwriter.writerow(jsonobject['attributes']['name'] + "," + str(jsonobject['powerConsumption']))
+    for jsonobject in result:
+        if jsonobject['attributes']['name'] == "Smart Plug 11":
+            dataArray.append(jsonobject['powerConsumption'])
+    return dataArray
 
 
 def checkSwitch():
@@ -50,37 +45,39 @@ def checkSwitch():
     response = boschconnection.getresponse()
     data = json.loads(response.read())
     timestamp1 = data['features']['keypad']['properties']['status']['value']['eventTimestamp']
-
+    print(timestamp1)
     epoch = datetime.datetime.utcfromtimestamp(0)
 
     timestamp = (datetime.datetime.now() - epoch).total_seconds() * 1000.0
 
     if timestamp.__round__() - timestamp1 < 7205000:
-        print("pressed")
+        print("We got a signal!")
         connection.request("GET", "/status/good")
         connection.close()
+        return True
     else:
-        print("not")
+        print("No signal yet!")
+        return False
 
 
 def analyseData():
     import pandas as pd
-    d = pd.read_csv('dataplug11.csv')
-    print(d.get_values())
-    for row in d.get_values():
-        print(float(row[0]))
-
-    dfake = pd.read_csv('dataplug11fake.csv')
-    dsfake = pd.read_csv('dataplug11SmallFake.csv')
-
-    df = pd.DataFrame(d)
-
-    # print(d['power'][0].dtypes)
-
-    # analyseData()
+    dataArray = getData()
+    frame = pd.DataFrame(dataArray)
+    standarddev = frame.std()
+    if standarddev[0] < 200:
+        setAlert()
+        while True:
+            time.sleep(1)
+            if checkSwitch():
+                break
 
 
-setAlert()
+# analyseData()
+
+
 while True:
     time.sleep(1)
     checkSwitch()
+#    if checkSwitch():
+#        break
